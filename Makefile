@@ -1,0 +1,3 @@
+all:
+	protoc --go_out=$$GOPATH/src ./krpc/pb/krpc.proto
+	go install ./...
