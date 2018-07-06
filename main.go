@@ -2,12 +2,11 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
-
-	"github.com/golang/protobuf/proto"
+	"time"
 
 	"github.com/ilikebits/jeb/krpc"
-	"github.com/ilikebits/jeb/krpc/pb"
 )
 
 func main() {
@@ -15,43 +14,41 @@ func main() {
 	addr := flag.String("addr", "127.0.0.1:50000", "server TCP address")
 	flag.Parse()
 
-	// Open connection.
-	log.Println("opening connection")
-	conn, err := krpc.Connect(*addr)
+	// Dial client.
+	c, err := krpc.Dial(*addr)
 	if err != nil {
 		panic(err)
 	}
-	defer conn.Close()
-	log.Println("opened connection:", conn.ID())
 
 	// Call KRPC.GetStatus()
-	req := pb.Request{
-		Calls: []*pb.ProcedureCall{&pb.ProcedureCall{
-			Service:   "KRPC",
-			Procedure: "GetStatus",
-		}},
-	}
-	_, err = conn.Send(&req)
+	stat, err := c.Status()
 	if err != nil {
 		panic(err)
 	}
+	log.Printf("%#v\n", stat)
 
-	res := pb.Response{}
-	err = conn.Read(&res)
+	// Call KRPC.SpaceCenter.ActiveVessel()
+	v, err := c.Vessel()
 	if err != nil {
 		panic(err)
 	}
-	if e := res.GetError(); e != nil {
-		panic(e.GetDescription())
-	}
-	statBytes := res.GetResults()[0].GetValue()
-	status := pb.Status{}
-	err = proto.Unmarshal(statBytes, &status)
-	if err != nil {
-		panic(err)
-	}
-	log.Printf("%#v", status)
+	log.Printf("%#v\n", v)
 
-	// Spin to keep the connection open.
-	select {}
+	// Call vessel.Flight()
+	f, err := v.Flight()
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("%#v\n", f)
+
+	for {
+		// Call flight.SurfaceAltitude()
+		a, err := f.SurfaceAltitude()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%#v\n", a)
+
+		time.Sleep(1 * time.Millisecond)
+	}
 }

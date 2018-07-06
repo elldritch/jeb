@@ -8,12 +8,7 @@ all: services proto
 .PHONY: services
 services: vendor/krpc
 	cd vendor/krpc; bazel build //service/$(KRPC_SERVICES):ServiceDefinitions
-	cp vendor/krpc/bazel-bin/service/Drawing/KRPC.Drawing.json krpc/codegen
-	cp vendor/krpc/bazel-bin/service/InfernalRobotics/KRPC.InfernalRobotics.json krpc/codegen
-	cp vendor/krpc/bazel-bin/service/KerbalAlarmClock/KRPC.KerbalAlarmClock.json krpc/codegen
-	cp vendor/krpc/bazel-bin/service/RemoteTech/KRPC.RemoteTech.json krpc/codegen
-	cp vendor/krpc/bazel-bin/service/SpaceCenter/KRPC.SpaceCenter.json krpc/codegen
-	cp vendor/krpc/bazel-bin/service/UI/KRPC.UI.json krpc/codegen
+	cp -f vendor/krpc/bazel-bin/service/$(KRPC_SERVICES)/*.json krpc/codegen
 
 .PHONY: proto
 proto: vendor/krpc

@@ -38,6 +38,19 @@ func (c *Conn) Read(msg proto.Message) error {
 	log.Println("read message length:", msglen)
 
 	// Read remaining message if needed.
+	//
+	// TODO: what do we do if we read _too many_ messages? What if we read past
+	// the first message?
+	//
+	// I think the answer here is to always parse messages and store parsed
+	// messages in a buffer. Since responses are always guaranteed to be in the
+	// order of requests, we can always pop off the latest response.
+	//
+	// > Requests are processed in order of receipt. The next request from a
+	// > client will not be processed until the previous one completes execution
+	// > and it’s response has been received by the client. When there are
+	// > multiple client connections, requests are processed in round-robin order.
+	// > - https://krpc.github.io/krpc/communication-protocols/messages.html#invoking-remote-procedures
 	remaining := (int(msglen) + n) - buflen
 	log.Println("remaining messages bytes:", remaining)
 	if remaining > 0 {
