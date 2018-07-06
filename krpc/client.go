@@ -24,5 +24,5 @@ func Dial(addr string) (*Client, error) {
 }
 
 func (c *Client) Status() (pb.Status, error) {
-	return pb.Status{}, errors.New("unimplemented")
+	return pb.Status{}, errors.New("not implemented")
 }

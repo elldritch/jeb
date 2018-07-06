@@ -1,0 +1,3 @@
+[submodule "vendor/krpc"]
+	path = vendor/krpc
+	url = https://github.com/krpc/krpc

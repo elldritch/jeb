@@ -1,0 +1,15 @@
+--- krpc/pb/krpc.proto
++++ krpc/pb/krpc.proto
+@@ -1,9 +1,13 @@
++// From https://github.com/krpc/krpc/tree/latest-version/protobuf
++// 
++// (C) djungelorm 2015-2016. Licensed under the terms of the MIT license.
+ syntax = "proto3";
+ package krpc.schema;
+ option csharp_namespace = 'KRPC.Schema.KRPC';
+ option java_package = 'krpc.schema';
+ option java_outer_classname = 'KRPC';
+ option objc_class_prefix = "KRPC";
++option go_package = 'github.com/ilikebits/jeb/krpc/pb';
+ 
+ // Messages for connecting to the server

@@ -1,0 +1,3 @@
+krpc/codegen/KRPC.*.json
+krpc/pb/*.pb.go
+krpc/pb/*.proto
