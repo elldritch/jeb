@@ -46,13 +46,11 @@ func Connect(addr string) (*Conn, error) {
 	}
 
 	// Read connection response.
-	log.Println("reading connection response")
 	res := pb.ConnectionResponse{}
 	err = c.Read(&res)
 	if err != nil {
 		return nil, err
 	}
-	log.Println("done reading connection response")
 
 	// Parse connection response.
 	if res.GetStatus() != pb.ConnectionResponse_OK {

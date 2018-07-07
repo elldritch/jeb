@@ -10,6 +10,9 @@ import (
 )
 
 func main() {
+	// Configure logging.
+	log.SetFlags(log.Lmicroseconds | log.Llongfile)
+
 	// Parse flags.
 	addr := flag.String("addr", "127.0.0.1:50000", "server TCP address")
 	flag.Parse()
@@ -25,21 +28,21 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	log.Printf("%#v\n", stat)
+	log.Printf("%#v", stat)
 
 	// Call KRPC.SpaceCenter.ActiveVessel()
 	v, err := c.Vessel()
 	if err != nil {
 		panic(err)
 	}
-	log.Printf("%#v\n", v)
+	log.Printf("%#v", v)
 
 	// Call vessel.Flight()
 	f, err := v.Flight()
 	if err != nil {
 		panic(err)
 	}
-	log.Printf("%#v\n", f)
+	log.Printf("%#v", f)
 
 	for {
 		// Call flight.SurfaceAltitude()

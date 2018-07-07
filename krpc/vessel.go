@@ -31,7 +31,7 @@ func (c *Client) Vessel() (*Vessel, error) {
 		return nil, errors.New(e.GetDescription())
 	}
 	idBytes := res.GetResults()[0].GetValue()
-	log.Printf("parsing vessel ID: %#v\n", idBytes)
+	log.Printf("parsing vessel ID: %#v", idBytes)
 	id, err := proto.NewBuffer(idBytes).DecodeVarint()
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (v *Vessel) Flight() (*Flight, error) {
 		return nil, errors.New(e.GetDescription())
 	}
 	idBytes := res.GetResults()[0].GetValue()
-	log.Printf("parsing flight: %#v\n", idBytes)
+	log.Printf("parsing flight: %#v", idBytes)
 	id, err := proto.NewBuffer(idBytes).DecodeVarint()
 	if err != nil {
 		return nil, err
@@ -123,7 +123,7 @@ func (f *Flight) SurfaceAltitude() (float64, error) {
 		return math.NaN(), errors.New(e.GetDescription())
 	}
 	altitudeBytes := res.GetResults()[0].GetValue()
-	log.Printf("parsing altitude: %#v\n", altitudeBytes)
+	log.Printf("parsing altitude: %#v", altitudeBytes)
 	altitude, err := proto.NewBuffer(altitudeBytes).DecodeFixed64()
 	if err != nil {
 		return math.NaN(), err

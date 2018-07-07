@@ -77,7 +77,7 @@ func main() {
 			panic(err)
 		}
 
-		log.Printf("%#v\n", service)
+		log.Printf("%#v", service)
 	}
 
 	jen.NewFile("krpc")
