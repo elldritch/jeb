@@ -1,8 +1,8 @@
-package main
+package service
 
-type Service map[string]ServiceDefinition
+type Services map[string]Definition
 
-type ServiceDefinition struct {
+type Definition struct {
 	ID            int
 	Documentation string
 	Procedures    map[string]Procedure
@@ -21,7 +21,7 @@ type Procedure struct {
 
 type Parameter struct {
 	Name string
-	Type Type
+	Type Type `json:"type"`
 }
 
 type Type struct {

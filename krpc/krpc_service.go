@@ -8,36 +8,24 @@ import (
 	"github.com/ilikebits/jeb/krpc/pb"
 )
 
-type Point struct {
-	X, Y float64
+type KRPC struct {
+	conn *Conn
 }
 
-type Vector struct {
-	X, Y, Z float64
-}
-
-type Quaternion struct {
-	A, B, C, D float64
-}
-
-type BoundingBox struct {
-	Min, Max Vector
-}
-
-func (c *Client) GetStatus() (pb.Status, error) {
+func (k *KRPC) GetStatus() (pb.Status, error) {
 	req := pb.Request{
 		Calls: []*pb.ProcedureCall{&pb.ProcedureCall{
 			Service:   "KRPC",
 			Procedure: "GetStatus",
 		}},
 	}
-	_, err := c.conn.Send(&req)
+	_, err := k.conn.Send(&req)
 	if err != nil {
 		return pb.Status{}, err
 	}
 
 	res := pb.Response{}
-	err = c.conn.Read(&res)
+	err = k.conn.Read(&res)
 	if err != nil {
 		return pb.Status{}, err
 	}

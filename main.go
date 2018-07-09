@@ -24,7 +24,7 @@ func main() {
 	}
 
 	// Call KRPC.GetStatus()
-	stat, err := c.GetStatus()
+	stat, err := c.KRPC.GetStatus()
 	if err != nil {
 		panic(err)
 	}

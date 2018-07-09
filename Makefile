@@ -41,6 +41,11 @@ clean:
 	rm -f krpc/codegen/*.json
 	rm -f krpc/pb/*.proto
 	rm -f krpc/pb/*.pb.go
+	rm -f krpc/generated_*_service.go
+
+.PHONY: clean-services
+clean-services:
+	rm -f krpc/generated_*_service.go
 
 # Tool targets
 $(ENSURE_DEPS):

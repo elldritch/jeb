@@ -1,3 +1,8 @@
+# Generated code.
 krpc/codegen/KRPC.*.json
 krpc/pb/*.pb.go
 krpc/pb/*.proto
+krpc/generated_*_service.go
+
+# Editor artifacts.
+debug
